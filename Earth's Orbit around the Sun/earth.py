@@ -43,8 +43,13 @@ t = np.arange(0, t_max , dt)
 
 
 # initialize arrays to store positions and velocities at all time steps
-r =  np.empty(shape=(len(t),2))
+r =  np.empty(shape=(len(t),2)) # this will create 2D array for r and v where len(t) is no. of time steps and 2 refers to x, y co-ordinates as r and v are vectors.
 v =  np.empty(shape=(len(t),2))
 # set the initial condition for position and velocity
 
-r[0], v[0] = r_0 , v_0
+r[0], v[0] = r_0 , v_0 
+
+# defining the function that returns the accn vector when passed in the possitional vector
+def accn(r):
+    return (-G*M_sun / np.linalg.norm(r)**3) * r
+
