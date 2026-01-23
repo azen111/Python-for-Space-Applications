@@ -80,14 +80,6 @@ def euler_method(r,v, accn, dt):
         r[i] = r[i-1] + v[i-1]*dt
         v[i] = v[i-1] + accn(r[i-1])*dt
 
-# Apply the Euler integration on the given conditions
-
-euler_method(r,v,accn , dt)
-
-
-# Find the point at which Earth is at its Aphelion
-
-
 # RK4 Integration
 
 def rk4_method (r,v, accn, dt):
@@ -151,14 +143,42 @@ def rk4_method (r,v, accn, dt):
 
 
         # update the r and v
-        v[i] = v[i-1] + dt/6(k1v + 2*k2v + 2*k3v + k4v)
-        r[i] = r[i-1] + dt/6(k1r + 2*k2r + 2*k3r + k4r)
+        v[i] = v[i-1] + dt/6*(k1v + 2*k2v + 2*k3v + k4v)
+        r[i] = r[i-1] + dt/6*(k1r + 2*k2r + 2*k3r + k4r)
 
+
+
+def numerical_integration(r,v , accn, dt , method= 'euler'):
+    """
+    This function will aplly the numerical_integration based on the method choosen
+    If the method is euler or rk4, the respective method will be implemented
+    else it will raise an exception
+
+    parameters
+    ----------
+    r: empty array for possition of size t
+    v: empty array for velocity  of size t
+    a: func to calculate the accn at given possition
+    dt: time step for the simulation
+    method: either "euler" or "rk4" 
+
+    """
+    if method.lower() == 'euler':
+        euler_method(r,v,accn, dt)
+    elif method.lower() == 'rk4':
+        rk4_method(r,v, accn , dt)
+    else:
+        raise Exception(f'You can either chhoose "euler" or "rk4". Your current input for method is:-{method}')
+
+
+
+# Call the numerical integration
+numerical_integration(r,v, accn,dt, method= "nigga")
 
 # Find the point at which Earth is at its Aphelion
-
 sizes = np.array([np.linalg.norm(position) for position in r])
 pos_aphelion = np.max(sizes)
 arg_aphelion = np.argmax(sizes)
 vel_aphelion = np.linalg.norm(v[arg_aphelion])
 
+print(pos_aphelion/1e9 , vel_aphelion/1e3)
