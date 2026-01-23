@@ -43,7 +43,7 @@ t = np.arange(0, t_max , dt)
 
 
 # initialize arrays to store positions and velocities at all time steps
-r =  np.empty(shape=(len(t),2)) # this will create 2D array for r and v where len(t) is no. of time steps and 2 refers to x, y co-ordinates as r and v are vectors.
+r =  np.empty(shape=(len(t),2))# this will create 2D array for r and v where len(t) is no. of time steps and 2 refers to x, y co-ordinates as r and v are vectors.
 v =  np.empty(shape=(len(t),2))
 # set the initial condition for position and velocity
 
@@ -87,10 +87,78 @@ euler_method(r,v,accn , dt)
 
 # Find the point at which Earth is at its Aphelion
 
+
+# RK4 Integration
+
+def rk4_method (r,v, accn, dt):
+    '''
+    Equations for RK4 method
+    ------------------------
+    ODE for Position
+    --> dr/dt = v
+    --> r_new = r_old + dt/6(k1r + 2*k2r + 2k3r + k4r)
+
+    ODE for Velocity
+    --> dv/dt = a
+    --> v_new = v_old + dt/6(k1v + 2*k2v + 2k3v + k4v)
+
+    Methods to calculate the steps
+
+    ------------------------------
+
+    Step 1 :- 0
+    k1v = accn(r[i-1])
+    k1r = v[i-1]
+
+    Step 2 :- dt/2 using step 1
+    k2v = accn(r[i-1] + k1r * dt/2)
+    k2r = v[i-1] + k1v * dt/2
+
+    Step 3 :- dt/2 using step 2
+    k3v = accn(r[i-1] + k2r * dt/2)
+    k3r = v[i-1] + k2v * dt/2
+
+    Step 4 :- dt/2 using step 3
+    k4v = accn(r[i-1] + k3r * dt/2)
+    k4r = v[i-1] + k3v * dt/2
+
+    parameters
+    ----------
+    r: empty array for possition of size t
+    v: empty array for velocity  of size t
+    a: func to calculate the accn at given possition
+    dt: time step for the simulation
+
+    this function will update the empty arrays for r and v with the simulated data
+    '''
+
+    for i in range(1, len(r)):
+        # Step 1 :- 0
+        k1v = accn(r[i-1])
+        k1r = v[i-1]
+
+        # Step 2 :- dt/2 using step 1
+        k2v = accn(r[i-1] + k1r * dt/2)
+        k2r = v[i-1] + k1v * dt/2
+
+        # Step 3 :- dt/2 using step 2
+        k3v = accn(r[i-1] + k2r * dt/2)
+        k3r = v[i-1] + k2v * dt/2
+
+        # Step 4 :- dt/2 using step 3
+        k4v = accn(r[i-1] + k3r * dt/2)
+        k4r = v[i-1] + k3v * dt/2
+
+
+        # update the r and v
+        v[i] = v[i-1] + dt/6(k1v + 2*k2v + 2*k3v + k4v)
+        r[i] = r[i-1] + dt/6(k1r + 2*k2r + 2*k3r + k4r)
+
+
+# Find the point at which Earth is at its Aphelion
+
 sizes = np.array([np.linalg.norm(position) for position in r])
 pos_aphelion = np.max(sizes)
 arg_aphelion = np.argmax(sizes)
 vel_aphelion = np.linalg.norm(v[arg_aphelion])
-
-
 
