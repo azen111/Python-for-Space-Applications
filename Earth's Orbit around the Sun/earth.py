@@ -171,14 +171,22 @@ def numerical_integration(r,v , accn, dt , method= 'euler'):
         raise Exception(f'You can either chhoose "euler" or "rk4". Your current input for method is:-{method}')
 
 
-
-# Call the numerical integration
-numerical_integration(r,v, accn,dt, method= "nigga")
-
 # Find the point at which Earth is at its Aphelion
 sizes = np.array([np.linalg.norm(position) for position in r])
 pos_aphelion = np.max(sizes)
 arg_aphelion = np.argmax(sizes)
 vel_aphelion = np.linalg.norm(v[arg_aphelion])
+            
 
-print(pos_aphelion/1e9 , vel_aphelion/1e3)
+# Plotting the simulated data on 3D axis
+plt.style.use('dark_background')
+plt.figure(figsize=(7,12))
+
+plt.plot(r[:,0], r[:,0], color= "tab:pink", lw = 2, label="orbit")
+plt.axis('off')
+plt.scatter(0,0, color = "yellow" , s = 1000, label ='Sun')
+plt.show()
+
+
+
+
