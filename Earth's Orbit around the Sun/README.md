@@ -18,8 +18,10 @@
    
    ## 1.2) Initial Condition
    * Earth is at its Perihelion (closest to Sun)
-   
+     
 
+# <h1 id='useage'>2) Understanding `config.json` for Simulation Parameters</h1>
+Change the Simulation Parameters using [config.json](https://github.com/azen111/Python-for-Space-Applications/blob/d2f42a4dbd25cb725b6ea67e5a84d7f60f4fedfa/Earth's%20Orbit%20around%20the%20Sun/config.json):- 
 
    **a)** Planet Info:                                              
       → `name`: The name of the Planet to Display on the Plot.                      
@@ -36,3 +38,9 @@
                                
    **d)** Numerical Integration:                                                              
       → `method`: The method to choose for Numerical Integration `(either "RK4" or "Euler")`.      
+
+---
+
+# 3) Simulate any planet of your choice
+* Here is the [Planetary Fact Sheet](https://nssdc.gsfc.nasa.gov/planetary/factsheet/
+) that you can refer.
