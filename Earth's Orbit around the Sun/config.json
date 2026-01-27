@@ -13,7 +13,6 @@
     "simulation_time": 365
   },
   "numerical_integration": {
-    "method": "Euler"
+    "method": "rk4"
   }
 }
-
